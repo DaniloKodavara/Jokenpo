@@ -51,6 +51,10 @@ public class JogadoresService {
         }
     }
 
+    public void limpar(){
+        jogadoresRepository.deleteAll();
+    }
+
     public void verificarExistencia(Jogador jogador) {
         buscar(jogador.getId());
     }

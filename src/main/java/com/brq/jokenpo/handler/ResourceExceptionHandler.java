@@ -3,6 +3,8 @@ package com.brq.jokenpo.handler;
 import com.brq.jokenpo.domain.DetalhesErro;
 import com.brq.jokenpo.services.exceptions.JogadorExistenteException;
 import com.brq.jokenpo.services.exceptions.JogadorNaoEncontradoException;
+import com.brq.jokenpo.services.exceptions.PartidaExistenteException;
+import com.brq.jokenpo.services.exceptions.PartidaNaoEncontradaException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +40,31 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
+    @ExceptionHandler(PartidaExistenteException.class)
+    public ResponseEntity<DetalhesErro> handlePartidaExistenteException(PartidaExistenteException e, HttpServletRequest request)
+    {
+        DetalhesErro erro = new DetalhesErro();
+        erro.setStatus(409L);
+        erro.setTitulo("Partida já existente");
+        erro.setMensagemDesenvolvedor("https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status");
+        erro.setTimestamp(System.currentTimeMillis());
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
+    }
+
+    @ExceptionHandler(PartidaNaoEncontradaException.class)
+    public ResponseEntity<DetalhesErro> handlerPartidaNaoExistenteException(PartidaNaoEncontradaException e, HttpServletRequest request){
+        DetalhesErro erro = new DetalhesErro();
+        erro.setStatus(404L);
+        erro.setTitulo("A partida não pode ser encontrada");
+        erro.setMensagemDesenvolvedor("https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status");
+        erro.setTimestamp(System.currentTimeMillis());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+    }
+
+
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<DetalhesErro> handleDataIntegrityViolationException(DataIntegrityViolationException e, HttpServletRequest request) {
 
@@ -61,5 +88,4 @@ public class ResourceExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
-
 }
