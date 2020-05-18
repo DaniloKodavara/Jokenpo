@@ -12,13 +12,19 @@ public class Partida {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @OneToMany(mappedBy = "partida")
-    private List<Jogador> jogadores;
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String resultado;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @ElementCollection
+    private List<String> historico;
+
     public Partida() {
+    }
+
+    public Partida(String resultado, List<String> historico) {
+        this.resultado = resultado;
+        this.historico = historico;
     }
 
     public Long getId() {
@@ -29,14 +35,6 @@ public class Partida {
         this.id = id;
     }
 
-    public List<Jogador> getJogadores() {
-        return jogadores;
-    }
-
-    public void setJogadores(List<Jogador> jogadores) {
-        this.jogadores = jogadores;
-    }
-
     public String getResultado() {
         return resultado;
     }
@@ -44,4 +42,13 @@ public class Partida {
     public void setResultado(String resultado) {
         this.resultado = resultado;
     }
+
+    public List<String> getHistorico() {
+        return historico;
+    }
+
+    public void setHistorico(List<String> historico) {
+        this.historico = historico;
+    }
+
 }

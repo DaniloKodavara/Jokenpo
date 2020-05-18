@@ -1,7 +1,9 @@
 package com.brq.jokenpo.resources;
 
 import com.brq.jokenpo.domain.Jogador;
+import com.brq.jokenpo.domain.Movimento;
 import com.brq.jokenpo.services.JogadoresService;
+import com.brq.jokenpo.services.MovimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
@@ -53,5 +55,4 @@ public class JogadoresResource {
         jogadoresService.deletar(id);
         return ResponseEntity.noContent().build();
     }
-
 }

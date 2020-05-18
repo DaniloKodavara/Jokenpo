@@ -2,6 +2,8 @@ package com.brq.jokenpo.resources;
 
 import com.brq.jokenpo.AbstractTest;
 import com.brq.jokenpo.domain.Jogador;
+import com.brq.jokenpo.domain.Movimento;
+import com.brq.jokenpo.enums.EnumMovimento;
 import com.brq.jokenpo.services.JogadoresService;
 import com.brq.jokenpo.services.MovimentoService;
 import org.junit.Test;
@@ -12,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,10 +24,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = JogadoresResource.class)
-public class JogadoresResourceTest extends AbstractTest {
+@WebMvcTest(value = MovimentosResource.class)
+public class MovimentosResourceTest extends AbstractTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,28 +39,31 @@ public class JogadoresResourceTest extends AbstractTest {
 
     @WithMockUser(value = "spring")
     @Test
-    public void deveRetornarOk_QuandoListarJogadores() throws Exception {
-        String uri = "/jogadores";
+    public void deveRetornarCrated_QuandoAdicionarMovimento() throws Exception {
+        String uri = "/jogadores/{id}/movimento";
+        Long id = 1L;
+        Movimento movimento = new Movimento(EnumMovimento.LAGARTO);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get(uri)
+                .post(uri, id)
                 .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(movimento))
                 .contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         MockHttpServletResponse response = result.getResponse();
 
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
     }
 
     @WithMockUser(value = "spring")
     @Test
-    public void deveRetornarOk_QuandoBuscarJogadores() throws Exception {
-        String uri = "/jogadores/{id}";
+    public void deveRetornarOk_QuandoBuscarMovimento() throws Exception {
+        String uri = "/jogadores/{id}/movimento";
         Long id = 1L;
-        Jogador jogador = new Jogador("Danilo");
+        Movimento movimento = new Movimento(EnumMovimento.LAGARTO);
 
-        Mockito.when(jogadoresService.buscar(1L)).thenReturn(jogador);
+        Mockito.when(movimentoService.buscar(1L)).thenReturn(movimento);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .get(uri, id)
@@ -73,61 +76,17 @@ public class JogadoresResourceTest extends AbstractTest {
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
-
     @WithMockUser(value = "spring")
     @Test
-    public void deveRetornarCrated_QuandoCriarJogador() throws Exception {
-        String uri = "/jogadores";
-        Jogador jogador = new Jogador("Danilo");
-
-        Mockito.when(jogadoresService.salvar(Mockito.any(Jogador.class))).thenReturn(jogador);
-
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post(uri)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(mapToJson(jogador))
-                .contentType(MediaType.APPLICATION_JSON);
-
-        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        MockHttpServletResponse response = result.getResponse();
-
-        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
-    }
-
-    @WithMockUser(value = "spring")
-    @Test
-    public void deveRetornarBadRequest_QuandoCriarJogadorComParametroInvalido() throws Exception {
-        Jogador jogador = new Jogador(null);
-
-        String uri = "/jogadores";
-
-        Mockito.when(jogadoresService.salvar(Mockito.any(Jogador.class))).thenReturn(jogador);
-
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post(uri)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(mapToJson(jogador))
-                .contentType(MediaType.APPLICATION_JSON);
-
-        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-        MockHttpServletResponse response = result.getResponse();
-
-        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-
-    }
-
-
-    @WithMockUser(value = "spring")
-    @Test
-    public void deveRetornarNoContent_QuandoAtualizarJogador() throws Exception {
-        Jogador jogador = new Jogador("Danilo");
-        String uri = "/jogadores/{id}";
+    public void deveRetornarNoContent_QuandoAtualizarMovimento() throws Exception {
+        Movimento movimento = new Movimento(EnumMovimento.LAGARTO);
+        String uri = "/jogadores/{id}/movimento";
         Long id = 1L;
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .put(uri, id)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(mapToJson(jogador))
+                .content(mapToJson(movimento))
                 .contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -139,9 +98,9 @@ public class JogadoresResourceTest extends AbstractTest {
 
     @WithMockUser(value = "spring")
     @Test
-    public void deveRetornarNoContent_QuandoDeletarJogador() throws Exception {
+    public void deveRetornarNoContent_QuandoDeletarMovimento() throws Exception {
         Long id = 1L;
-        String uri = "/jogadores/{id}";
+        String uri = "/jogadores/{id}/movimento";
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .delete(uri, id)
@@ -153,6 +112,5 @@ public class JogadoresResourceTest extends AbstractTest {
 
         assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
     }
-
 
 }
