@@ -1,7 +1,7 @@
 package com.brq.jokenpo.resources;
 
 import com.brq.jokenpo.domain.Movimento;
-import com.brq.jokenpo.services.MovimentoService;
+import com.brq.jokenpo.services.MovimentosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
@@ -17,31 +17,25 @@ import java.util.concurrent.TimeUnit;
 public class MovimentosResource {
 
     @Autowired
-    private MovimentoService movimentoService;
+    private MovimentosService movimentosService;
 
     @RequestMapping(value = "{id}/movimento", method = RequestMethod.POST)
     public ResponseEntity<Void> adicionarMovimento(@PathVariable("id") Long jogadorId, @RequestBody Movimento movimento){
-        movimentoService.salvar(jogadorId, movimento);
+        movimentosService.salvar(jogadorId, movimento);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}/movimento", method = RequestMethod.GET)
     public ResponseEntity<?> buscarMovimento(@PathVariable("id") Long jogadorId) {
-        Movimento movimento = movimentoService.buscar(jogadorId);
+        Movimento movimento = movimentosService.buscar(jogadorId);
         CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
         return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(movimento);
     }
 
     @RequestMapping(value = "{id}/movimento", method = RequestMethod.PUT)
     public ResponseEntity<Void> atualizarMovimento(@PathVariable("id") Long jogadorId, @RequestBody Movimento movimento){
-        movimentoService.atualizar(jogadorId, movimento);
-        return ResponseEntity.noContent().build();
-    }
-
-    @RequestMapping(value = "{id}/movimento", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deletarMovimento(@PathVariable("id") Long jogadorId){
-        movimentoService.deletar(jogadorId);
+        movimentosService.atualizar(jogadorId, movimento);
         return ResponseEntity.noContent().build();
     }
 }

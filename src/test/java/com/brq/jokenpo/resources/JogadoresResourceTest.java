@@ -3,7 +3,7 @@ package com.brq.jokenpo.resources;
 import com.brq.jokenpo.AbstractTest;
 import com.brq.jokenpo.domain.Jogador;
 import com.brq.jokenpo.services.JogadoresService;
-import com.brq.jokenpo.services.MovimentoService;
+import com.brq.jokenpo.services.MovimentosService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -35,7 +34,7 @@ public class JogadoresResourceTest extends AbstractTest {
     private JogadoresService jogadoresService;
 
     @MockBean
-    private MovimentoService movimentoService;
+    private MovimentosService movimentoService;
 
     @WithMockUser(value = "spring")
     @Test

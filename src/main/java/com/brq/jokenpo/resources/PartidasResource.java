@@ -26,4 +26,10 @@ public class PartidasResource {
         CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
         return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(partida);
     }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity<Void> limpar(){
+        partidasService.limpar();
+        return ResponseEntity.noContent().build();
+    }
 }

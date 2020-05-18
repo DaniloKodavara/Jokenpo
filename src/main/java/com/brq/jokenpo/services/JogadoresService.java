@@ -11,7 +11,7 @@ public interface JogadoresService {
     Jogador buscar(Long id);
     void atualizar(Jogador jogador);
     void deletar(Long id);
-
+    void verificarExistencia(Jogador jogador);
     void limpar();
 
 }

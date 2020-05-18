@@ -1,14 +1,11 @@
 package com.brq.jokenpo.resources;
 
 import com.brq.jokenpo.AbstractTest;
-import com.brq.jokenpo.domain.Movimento;
-import com.brq.jokenpo.enums.EnumMovimento;
 import com.brq.jokenpo.services.JogadoresService;
 import com.brq.jokenpo.services.MovimentosService;
 import com.brq.jokenpo.services.PartidasService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,8 +22,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = MovimentosResource.class)
-public class MovimentosResourceTest extends AbstractTest {
+@WebMvcTest(value = PartidasResource.class)
+public class PartidasResourceTest extends AbstractTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -37,17 +34,16 @@ public class MovimentosResourceTest extends AbstractTest {
     @MockBean
     private MovimentosService movimentoService;
 
+    @MockBean
+    private PartidasService partidasService;
+
     @WithMockUser(value = "spring")
     @Test
-    public void deveRetornarOk_QuandoBuscarMovimento() throws Exception {
-        String uri = "/jogadores/{id}/movimento";
-        Long id = 1L;
-        Movimento movimento = new Movimento(EnumMovimento.LAGARTO);
-
-        Mockito.when(movimentoService.buscar(1L)).thenReturn(movimento);
+    public void deveRetornarOk_QuandoIniciarPartida() throws Exception {
+        String uri = "/partida";
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get(uri, id)
+                .get(uri)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -59,21 +55,17 @@ public class MovimentosResourceTest extends AbstractTest {
 
     @WithMockUser(value = "spring")
     @Test
-    public void deveRetornarNoContent_QuandoAtualizarMovimento() throws Exception {
-        Movimento movimento = new Movimento(EnumMovimento.LAGARTO);
-        String uri = "/jogadores/{id}/movimento";
-        Long id = 1L;
+    public void deveRetornarNoContent_QuandoLimparPartidas() throws Exception {
+        String uri = "/partida";
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put(uri, id)
+                .delete(uri)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(mapToJson(movimento))
                 .contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         MockHttpServletResponse response = result.getResponse();
 
         assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
-
     }
 }

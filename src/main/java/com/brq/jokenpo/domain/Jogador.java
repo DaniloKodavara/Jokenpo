@@ -16,7 +16,7 @@ public class Jogador {
     @NotEmpty(message = "O campo nome não pode ser vazio.")
     private String nome;
 
-    @OneToOne(mappedBy = "jogador")
+    @OneToOne(mappedBy = "jogador", cascade = CascadeType.ALL)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Movimento movimento;
 

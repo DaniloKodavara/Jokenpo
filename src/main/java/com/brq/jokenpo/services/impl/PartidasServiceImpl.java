@@ -3,6 +3,7 @@ package com.brq.jokenpo.services.impl;
 import com.brq.jokenpo.domain.Movimento;
 import com.brq.jokenpo.domain.Partida;
 import com.brq.jokenpo.enums.EnumMovimento;
+import com.brq.jokenpo.repository.JogadoresRepository;
 import com.brq.jokenpo.repository.PartidasRepository;
 import com.brq.jokenpo.services.PartidasService;
 import com.brq.jokenpo.services.exceptions.*;
@@ -15,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PartidaServiceImpl implements PartidasService {
+public class PartidasServiceImpl implements PartidasService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PartidaServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PartidasServiceImpl.class);
 
     private static final String NENHUM_GANHADOR = "NINGUEM GANHOU!";
     private static final String UM_GANHADOR = " É O GANHADOR!";
@@ -27,11 +28,14 @@ public class PartidaServiceImpl implements PartidasService {
     @Autowired
     private PartidasRepository partidasRepository;
 
-    private JogadorServiceImpl jogadorService;
-    private MovimentoServiceImpl movimentoService;
+    @Autowired
+    private JogadoresRepository jogadoresRepository;
+
+    private JogadoresServiceImpl jogadorService;
+    private MovimentosServiceImpl movimentoService;
 
     @Autowired
-    public PartidaServiceImpl(JogadorServiceImpl jogadorService, MovimentoServiceImpl movimentoService) {
+    public PartidasServiceImpl(JogadoresServiceImpl jogadorService, MovimentosServiceImpl movimentoService) {
         this.jogadorService = jogadorService;
         this.movimentoService = movimentoService;
     }
@@ -65,6 +69,12 @@ public class PartidaServiceImpl implements PartidasService {
         partidasRepository.save(resultado);
 
         return resultado;
+    }
+
+    @Override
+    public void limpar() {
+        jogadoresRepository.deleteAll();
+        partidasRepository.deleteAll();
     }
 
     private void checarRequerimentos() {

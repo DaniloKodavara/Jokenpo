@@ -6,7 +6,7 @@ import com.brq.jokenpo.enums.EnumMovimento;
 import com.brq.jokenpo.repository.JogadoresRepository;
 import com.brq.jokenpo.repository.MovimentosRepository;
 import com.brq.jokenpo.services.JogadoresService;
-import com.brq.jokenpo.services.MovimentoService;
+import com.brq.jokenpo.services.MovimentosService;
 import com.brq.jokenpo.services.exceptions.JogadorNaoEncontradoException;
 import com.brq.jokenpo.services.exceptions.MovimentoExistenteException;
 import com.brq.jokenpo.services.exceptions.MovimentoNaoEncontradoException;
@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class MovimentoServiceImpl implements MovimentoService {
+public class MovimentosServiceImpl implements MovimentosService {
 
     @Autowired
     private JogadoresService jogadoresService;
@@ -59,18 +59,12 @@ public class MovimentoServiceImpl implements MovimentoService {
 
     public void atualizar(Long jogadorId, Movimento movimento) {
         Jogador jogador = jogadoresService.buscar(jogadorId);
-        verificarExistencia(jogador.getMovimento());
+        jogador.setId(jogadorId);
         EnumMovimento mov = EnumMovimento.getEnumMovementoPorNome(movimento.getMovimento());
-        movimento.setId(jogador.getMovimento().getId());
         movimento.setEnumMovimento(mov);
-        movimento.setMovimento(mov.getNome());
-        movimentosRepository.save(movimento);
-    }
-
-    public void deletar(Long jogadorId) {
-        Jogador jogador = jogadoresService.buscar(jogadorId);
-        verificarExistencia(jogador.getMovimento());
-        movimentosRepository.deleteById(jogador.getMovimento().getId());
+        movimento.setJogador(jogador);
+        movimento.setId(jogador.getMovimento().getId());
+        movimentosRepository.saveAndFlush(movimento);
     }
 
     public void verificarExistencia(Movimento movimento) {

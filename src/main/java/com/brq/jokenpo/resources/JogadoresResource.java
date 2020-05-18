@@ -1,9 +1,8 @@
 package com.brq.jokenpo.resources;
 
 import com.brq.jokenpo.domain.Jogador;
-import com.brq.jokenpo.domain.Movimento;
 import com.brq.jokenpo.services.JogadoresService;
-import com.brq.jokenpo.services.MovimentoService;
+import com.brq.jokenpo.services.MovimentosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
@@ -22,6 +21,9 @@ public class JogadoresResource {
 
     @Autowired
     private JogadoresService jogadoresService;
+
+    @Autowired
+    private MovimentosService movimentoService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Jogador>> listar() {

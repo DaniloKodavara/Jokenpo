@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class JogadorServiceImpl implements JogadoresService {
+public class JogadoresServiceImpl implements JogadoresService {
 
     @Autowired
     private JogadoresRepository jogadoresRepository;
