@@ -1,4 +1,4 @@
-# Jokenpo-Pedra-Papel-Tesoura-Largarto-Spock
+# Jokenpo-Pedra-Papel-Tesoura-Lagarto-Spock
 Desafio Jogo Jokenpo - API REST em Java 8 e Spring
 
 #### DESAFIO :
@@ -98,6 +98,14 @@ curl --anyauth --user spring:secret --location --request GET 'http://localhost:8
 }
 ```
 
+##### 1.4 Exclusão de Jogador por ID
+
+###### 1.4.1 Exemplo de Chamada
+
+```curl
+curl --anyauth --user spring:secret --location --request DELETE 'http://localhost:8080/jogadores/1'
+```
+
 ### 2. JOGADA (Movimento)
 
 ##### 2.1 Inserção de Jogada Para Jogador de ID 1
@@ -110,9 +118,9 @@ curl --anyauth --user spring:secret --location --request POST 'http://localhost:
 }'
 ```
 
-##### 1.3 Buscar movimento inserido por ID
+##### 2.2 Buscar movimento inserido por ID
 
-###### 1.3.1 Exemplo de Chamada
+###### 2.2.1 Exemplo de Chamada
 
 ```curl
 curl --anyauth --user spring:secret --location --request GET 'http://localhost:8080/jogadores/1/movimento'
@@ -124,24 +132,23 @@ curl --anyauth --user spring:secret --location --request GET 'http://localhost:8
   "movimento":"PEDRA"
 }
 ```
-
-##### 2.2 Exclusão de Jogador
-
-###### 2.2.1 Exemplo de Chamada
+##### 2.3 Atualizar movimento inserido por ID
 
 ```curl
-curl --anyauth --user spring:secret --location --request DELETE 'http://localhost:8080/jogadores/1'
+curl --anyauth --user spring:secret --location --request PUT 'http://localhost:8080/jogadores/1/movimento' --header 'Content-Type: application/json' --data-raw '{
+    "movimento" : "TESOURA"
+}'
 ```
 
-##### 2.3 Listagem
+##### 2.4 Listagem
 
-###### 2.3.1 Exemplo de Chamada
+###### 2.4.1 Exemplo de Chamada
 
 ```curl
 curl --anyauth --user spring:secret --location --request GET 'http://localhost:8080/jogadores'
 ```
 
-###### 2.3.2 Exemplo de Retorno de Sucesso - 200 OK
+###### 2.4.2 Exemplo de Retorno de Sucesso - 200 OK
 
 ```json
 [
