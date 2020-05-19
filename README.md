@@ -54,7 +54,7 @@ Exemplos:
 ###### 1.1.1 Exemplo de Chamada
 
 ```curl
-curl --anyauth --user spring:secret --location --request POST 'http://localhost:8080/jogadores' --header 'Content-Type: application/json' --data-raw '{
+curl --anyauth --user spring:secret --location --request POST 'http://localhost:8080/jogador' --header 'Content-Type: application/json' --data-raw '{
     "nome" : "JOGADOR 1"
 }'
 ```
@@ -64,7 +64,7 @@ curl --anyauth --user spring:secret --location --request POST 'http://localhost:
 ###### 1.2.1 Exemplo de Chamada
 
 ```curl
-curl --anyauth --user spring:secret --location --request GET 'http://localhost:8080/jogadores'
+curl --anyauth --user spring:secret --location --request GET 'http://localhost:8080/jogador'
 ```
 
 ###### 1.2.2 Exemplo de Retorno de Sucesso - 200 OK
@@ -87,7 +87,7 @@ curl --anyauth --user spring:secret --location --request GET 'http://localhost:8
 ###### 1.3.1 Exemplo de Chamada
 
 ```curl
-curl --anyauth --user spring:secret --location --request GET 'http://localhost:8080/jogadores/1'
+curl --anyauth --user spring:secret --location --request GET 'http://localhost:8080/jogador/1'
 ```
 ###### 1.3.2 Exemplo de Retorno de Sucesso - 200 OK
 
@@ -103,7 +103,7 @@ curl --anyauth --user spring:secret --location --request GET 'http://localhost:8
 ###### 1.4.1 Exemplo de Chamada
 
 ```curl
-curl --anyauth --user spring:secret --location --request DELETE 'http://localhost:8080/jogadores/1'
+curl --anyauth --user spring:secret --location --request DELETE 'http://localhost:8080/jogador/1'
 ```
 
 ### 2. JOGADA (Movimento)
@@ -113,7 +113,7 @@ curl --anyauth --user spring:secret --location --request DELETE 'http://localhos
 ###### 2.1.1 Exemplo de Chamada
 
 ```curl
-curl --anyauth --user spring:secret --location --request POST 'http://localhost:8080/jogadores/1/movimento' --header 'Content-Type: application/json' --data-raw '{
+curl --anyauth --user spring:secret --location --request POST 'http://localhost:8080/jogador/1/movimento' --header 'Content-Type: application/json' --data-raw '{
     "movimento" : "PEDRA"
 }'
 ```
@@ -123,7 +123,7 @@ curl --anyauth --user spring:secret --location --request POST 'http://localhost:
 ###### 2.2.1 Exemplo de Chamada
 
 ```curl
-curl --anyauth --user spring:secret --location --request GET 'http://localhost:8080/jogadores/1/movimento'
+curl --anyauth --user spring:secret --location --request GET 'http://localhost:8080/jogador/1/movimento'
 ```
 ###### 1.3.2 Exemplo de Retorno de Sucesso - 200 OK
 
@@ -135,7 +135,7 @@ curl --anyauth --user spring:secret --location --request GET 'http://localhost:8
 ##### 2.3 Atualizar movimento inserido por ID
 
 ```curl
-curl --anyauth --user spring:secret --location --request PUT 'http://localhost:8080/jogadores/1/movimento' --header 'Content-Type: application/json' --data-raw '{
+curl --anyauth --user spring:secret --location --request PUT 'http://localhost:8080/jogador/1/movimento' --header 'Content-Type: application/json' --data-raw '{
     "movimento" : "TESOURA"
 }'
 ```
@@ -145,7 +145,7 @@ curl --anyauth --user spring:secret --location --request PUT 'http://localhost:8
 ###### 2.4.1 Exemplo de Chamada
 
 ```curl
-curl --anyauth --user spring:secret --location --request GET 'http://localhost:8080/jogadores'
+curl --anyauth --user spring:secret --location --request GET 'http://localhost:8080/jogador'
 ```
 
 ###### 2.4.2 Exemplo de Retorno de Sucesso - 200 OK

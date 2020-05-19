@@ -5,7 +5,6 @@ import com.brq.jokenpo.domain.Movimento;
 import com.brq.jokenpo.enums.EnumMovimento;
 import com.brq.jokenpo.services.JogadoresService;
 import com.brq.jokenpo.services.MovimentosService;
-import com.brq.jokenpo.services.PartidasService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -40,7 +39,7 @@ public class MovimentosResourceTest extends AbstractTest {
     @WithMockUser(value = "spring")
     @Test
     public void deveRetornarOk_QuandoBuscarMovimento() throws Exception {
-        String uri = "/jogadores/{id}/movimento";
+        String uri = "/jogador/{id}/movimento";
         Long id = 1L;
         Movimento movimento = new Movimento(EnumMovimento.LAGARTO);
 
@@ -61,7 +60,7 @@ public class MovimentosResourceTest extends AbstractTest {
     @Test
     public void deveRetornarNoContent_QuandoAtualizarMovimento() throws Exception {
         Movimento movimento = new Movimento(EnumMovimento.LAGARTO);
-        String uri = "/jogadores/{id}/movimento";
+        String uri = "/jogador/{id}/movimento";
         Long id = 1L;
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders

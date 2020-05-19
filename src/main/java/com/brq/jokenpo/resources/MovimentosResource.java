@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping("/jogadores")
+@RequestMapping("/jogador")
 public class MovimentosResource {
 
     @Autowired
