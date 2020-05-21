@@ -51,10 +51,12 @@ public class MovimentosServiceImpl implements MovimentosService {
             throw new JogadorNaoEncontradoException("O jogador não pode ser encontrado");
         }
         Jogador jogador = jogadorOptional.get();
-        if (Objects.isNull(jogador.getMovimento())) {
+
+        Optional<Movimento> movimentoOptional = movimentosRepository.findById(jogador.getMovimento().getId());
+        if (!movimentoOptional.isPresent()) {
             throw new MovimentoNaoEncontradoException("O movimento não pode ser encontrado");
         }
-        return jogador.getMovimento();
+        return movimentoOptional.get();
     }
 
     public void atualizar(Long jogadorId, Movimento movimento) {
