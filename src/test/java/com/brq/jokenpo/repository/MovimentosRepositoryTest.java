@@ -21,7 +21,8 @@ public class MovimentosRepositoryTest {
     @Test
     public  void testeSave(){
 
-        Movimento movimento = new Movimento(EnumMovimento.PEDRA);
+        Movimento movimento = new Movimento();
+        movimento.setEnumMovimento(EnumMovimento.PEDRA);
 
         Movimento response = repository.save(movimento);
 
@@ -32,7 +33,8 @@ public class MovimentosRepositoryTest {
     @Test
     public void testFindById(){
 
-        Movimento movimento = new Movimento(EnumMovimento.PEDRA);
+        Movimento movimento = new Movimento();
+        movimento.setEnumMovimento(EnumMovimento.PEDRA);
         Long id = 1L;
 
         repository.save(movimento);
@@ -42,7 +44,8 @@ public class MovimentosRepositoryTest {
 
     @Test
     public void testDelete(){
-        Movimento movimento = new Movimento(EnumMovimento.PEDRA);
+        Movimento movimento = new Movimento();
+        movimento.setEnumMovimento(EnumMovimento.PEDRA);
 
         repository.save(movimento);
         repository.deleteById(1L);

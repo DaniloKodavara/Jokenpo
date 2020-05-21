@@ -41,7 +41,8 @@ public class MovimentosResourceTest extends AbstractTest {
     public void deveRetornarOk_QuandoBuscarMovimento() throws Exception {
         String uri = "/jogador/{id}/movimento";
         Long id = 1L;
-        Movimento movimento = new Movimento(EnumMovimento.LAGARTO);
+        Movimento movimento = new Movimento();
+        movimento.setEnumMovimento(EnumMovimento.LAGARTO);
 
         Mockito.when(movimentoService.buscar(1L)).thenReturn(movimento);
 
@@ -59,7 +60,8 @@ public class MovimentosResourceTest extends AbstractTest {
     @WithMockUser(value = "spring")
     @Test
     public void deveRetornarNoContent_QuandoAtualizarMovimento() throws Exception {
-        Movimento movimento = new Movimento(EnumMovimento.LAGARTO);
+        Movimento movimento = new Movimento();
+        movimento.setEnumMovimento(EnumMovimento.LAGARTO);
         String uri = "/jogador/{id}/movimento";
         Long id = 1L;
 

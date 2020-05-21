@@ -57,8 +57,10 @@ public class PartidasServiceImpl implements PartidasService {
         });
         LOGGER.debug("Resultado gerado");
 
-        Partida resultado = new Partida(this.getMensagemVitoria(vencedores),
-                this.getHistoricoDeMovimentos(this.movimentoService.listar()));
+        Partida resultado = new Partida();
+        resultado.setResultado(this.getMensagemVitoria(vencedores));
+        resultado.setHistorico(this.getHistoricoDeMovimentos(this.movimentoService.listar()));
+
         LOGGER.debug("Vencedores mensagem formatada");
 
         LOGGER.debug("Apagando dados de movimentos");

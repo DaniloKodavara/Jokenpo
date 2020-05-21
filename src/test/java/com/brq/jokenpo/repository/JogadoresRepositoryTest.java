@@ -1,8 +1,6 @@
 package com.brq.jokenpo.repository;
 
 import com.brq.jokenpo.domain.Jogador;
-import com.brq.jokenpo.domain.Movimento;
-import com.brq.jokenpo.enums.EnumMovimento;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +18,8 @@ public class JogadoresRepositoryTest {
     @Test
     public  void testeSave(){
 
-        Jogador jogador = new Jogador("Danilo");
+        Jogador jogador = new Jogador();
+        jogador.setNome("Danilo");
 
         Jogador response = repository.save(jogador);
 
@@ -31,7 +30,8 @@ public class JogadoresRepositoryTest {
     @Test
     public void testFindById(){
 
-        Jogador jogador = new Jogador("Danilo");
+        Jogador jogador = new Jogador();
+        jogador.setNome("Danilo");
         Long id = 1L;
 
         repository.save(jogador);
@@ -41,7 +41,8 @@ public class JogadoresRepositoryTest {
 
     @Test
     public void testDelete(){
-        Jogador jogador = new Jogador("Danilo");
+        Jogador jogador = new Jogador();
+        jogador.setNome("Danilo");
 
         repository.save(jogador);
         repository.deleteById(1L);

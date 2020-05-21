@@ -59,7 +59,8 @@ public class JogadoresResourceTest extends AbstractTest {
     public void deveRetornarOk_QuandoBuscarJogadores() throws Exception {
         String uri = "/jogador/{id}";
         Long id = 1L;
-        Jogador jogador = new Jogador("Danilo");
+        Jogador jogador = new Jogador();
+        jogador.setNome("Danilo");
 
         Mockito.when(jogadoresService.buscar(1L)).thenReturn(jogador);
 
@@ -79,7 +80,8 @@ public class JogadoresResourceTest extends AbstractTest {
     @Test
     public void deveRetornarCrated_QuandoCriarJogador() throws Exception {
         String uri = "/jogador";
-        Jogador jogador = new Jogador("Danilo");
+        Jogador jogador = new Jogador();
+        jogador.setNome("Danilo");
 
         Mockito.when(jogadoresService.salvar(Mockito.any(Jogador.class))).thenReturn(jogador);
 
@@ -98,7 +100,8 @@ public class JogadoresResourceTest extends AbstractTest {
     @WithMockUser(value = "spring")
     @Test
     public void deveRetornarBadRequest_QuandoCriarJogadorComParametroInvalido() throws Exception {
-        Jogador jogador = new Jogador(null);
+        Jogador jogador = new Jogador();
+        jogador.setNome(null);
 
         String uri = "/jogador";
 
@@ -121,7 +124,8 @@ public class JogadoresResourceTest extends AbstractTest {
     @WithMockUser(value = "spring")
     @Test
     public void deveRetornarNoContent_QuandoAtualizarJogador() throws Exception {
-        Jogador jogador = new Jogador("Danilo");
+        Jogador jogador = new Jogador();
+        jogador.setNome("Danilo");
         String uri = "/jogador/{id}";
         Long id = 1L;
 
