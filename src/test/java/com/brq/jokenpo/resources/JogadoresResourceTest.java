@@ -2,8 +2,6 @@ package com.brq.jokenpo.resources;
 
 import com.brq.jokenpo.AbstractTest;
 import com.brq.jokenpo.domain.Jogador;
-import com.brq.jokenpo.domain.Movimento;
-import com.brq.jokenpo.enums.EnumMovimento;
 import com.brq.jokenpo.services.JogadoresService;
 import com.brq.jokenpo.services.MovimentosService;
 import org.junit.Test;

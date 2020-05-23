@@ -2,12 +2,16 @@ package com.brq.jokenpo.domain;
 
 import com.brq.jokenpo.enums.EnumMovimento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Movimento {
 
     @Id
@@ -15,8 +19,8 @@ public class Movimento {
     @JsonIgnore
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "JOGADOR_ID")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "JOGADOR_ID", referencedColumnName = "id")
     @JsonIgnore
     private Jogador jogador;
 

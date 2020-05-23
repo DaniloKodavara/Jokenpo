@@ -1,13 +1,18 @@
 package com.brq.jokenpo.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Jogador {
 
     @Id

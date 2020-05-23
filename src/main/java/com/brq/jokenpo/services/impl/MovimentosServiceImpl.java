@@ -26,9 +26,6 @@ public class MovimentosServiceImpl implements MovimentosService {
     @Autowired
     private MovimentosRepository movimentosRepository;
 
-    @Autowired
-    private JogadoresRepository jogadoresRepository;
-
     public List<Movimento> listar(){
         return movimentosRepository.findAll();
     }
@@ -46,11 +43,7 @@ public class MovimentosServiceImpl implements MovimentosService {
     }
 
     public Movimento buscar(Long id) {
-        Optional<Jogador> jogadorOptional = jogadoresRepository.findById(id);
-        if (!jogadorOptional.isPresent()) {
-            throw new JogadorNaoEncontradoException("O jogador não pode ser encontrado");
-        }
-        Jogador jogador = jogadorOptional.get();
+        Jogador jogador = jogadoresService.buscar(id);
 
         Optional<Movimento> movimentoOptional = movimentosRepository.findById(jogador.getMovimento().getId());
         if (!movimentoOptional.isPresent()) {
