@@ -21,19 +21,19 @@ public class JogadoresResource {
     @Autowired
     private JogadoresService jogadoresService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<List<Jogador>> listar() {
         return ResponseEntity.status(HttpStatus.OK).body(jogadoresService.listar());
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<Void> salvar(@Valid @RequestBody Jogador jogador) {
         jogador = jogadoresService.salvar(jogador);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(jogador.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public ResponseEntity<?> buscar(@PathVariable("id") Long id) {
         Jogador jogador = jogadoresService.buscar(id);
 
@@ -41,14 +41,14 @@ public class JogadoresResource {
         return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(jogador);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     public ResponseEntity<Void> atualizar(@RequestBody Jogador jogador, @PathVariable Long id) {
         jogador.setId(id);
         jogadoresService.atualizar(jogador);
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
         jogadoresService.deletar(id);
         return ResponseEntity.noContent().build();

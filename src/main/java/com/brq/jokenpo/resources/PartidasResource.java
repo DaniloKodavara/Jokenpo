@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +17,7 @@ public class PartidasResource {
     @Autowired
     private PartidasService partidasService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<Partida> play(){
         Partida partida = partidasService.play();
 
@@ -27,7 +25,7 @@ public class PartidasResource {
         return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(partida);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
+    @DeleteMapping
     public ResponseEntity<Void> limpar(){
         partidasService.limpar();
         return ResponseEntity.noContent().build();

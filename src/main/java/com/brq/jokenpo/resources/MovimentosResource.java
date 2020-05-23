@@ -19,21 +19,21 @@ public class MovimentosResource {
     @Autowired
     private MovimentosService movimentosService;
 
-    @RequestMapping(value = "{id}/movimento", method = RequestMethod.POST)
+    @PostMapping(value = "{id}/movimento")
     public ResponseEntity<Void> adicionarMovimento(@PathVariable("id") Long jogadorId, @RequestBody Movimento movimento){
         movimentosService.salvar(jogadorId, movimento);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
         return ResponseEntity.created(uri).build();
     }
 
-    @RequestMapping(value = "/{id}/movimento", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}/movimento")
     public ResponseEntity<?> buscarMovimento(@PathVariable("id") Long jogadorId) {
         Movimento movimento = movimentosService.buscar(jogadorId);
         CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
         return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(movimento);
     }
 
-    @RequestMapping(value = "{id}/movimento", method = RequestMethod.PUT)
+    @PutMapping(value = "{id}/movimento")
     public ResponseEntity<Void> atualizarMovimento(@PathVariable("id") Long jogadorId, @RequestBody Movimento movimento){
         movimentosService.atualizar(jogadorId, movimento);
         return ResponseEntity.noContent().build();
