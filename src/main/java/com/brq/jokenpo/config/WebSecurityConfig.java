@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .and().authorizeRequests().antMatchers("/h2-console/**").permitAll()
+                .and().authorizeRequests().antMatchers("/h2-console/**", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().httpBasic()

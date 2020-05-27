@@ -23,33 +23,19 @@ import java.util.Optional;
 @SpringBootTest
 public class JogadoresServiceTest {
 
-    private static final String NOME = "Danilo";
-    private Long savedJogadorId = null;
-
     @MockBean
     JogadoresRepository repository;
 
     @Autowired
     JogadoresService service;
 
-    @Before
-    public void setUp() {
-        BDDMockito.given(repository.findById(Mockito.anyLong()))
-                .willReturn(Optional.of(new Jogador()));
-
-        BDDMockito.given(repository.findAll()).willReturn(new ArrayList<Jogador>());
-
-        BDDMockito.given(repository.save(Mockito.any(Jogador.class))).willReturn(new Jogador());
-
-    }
-
-    @After
-    public void tearDown() {
-        repository.deleteAll();
-    }
+    private static final String NOME = "Danilo";
 
     @Test
     public void testListar() {
+
+        BDDMockito.given(repository.findAll()).willReturn(new ArrayList<Jogador>());
+
         List<Jogador> list = service.listar();
 
         Assert.assertNotNull(list);
@@ -57,6 +43,8 @@ public class JogadoresServiceTest {
 
     @Test
     public void testSalvar() {
+
+        BDDMockito.given(repository.save(Mockito.any(Jogador.class))).willReturn(new Jogador());
         Jogador jogador = service.salvar(new Jogador());
 
         Assert.assertNotNull(jogador);
@@ -64,9 +52,19 @@ public class JogadoresServiceTest {
 
     @Test
     public void testBuscar() {
+        BDDMockito.given(repository.findById(Mockito.anyLong()))
+                .willReturn(Optional.of(new Jogador()));
+
         Jogador jogador = service.buscar(1L);
 
         Assert.assertNotNull(jogador);
+    }
+
+    private Jogador getMockJogador(){
+        Jogador j = new Jogador();
+        j.setId(1L);
+        j.setNome(NOME);
+        return j;
     }
 
 }
